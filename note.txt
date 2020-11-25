@@ -1,0 +1,37 @@
+UI
+---
+- npm install vue bootstrap-vue bootstrap
+
+Vuex
+----
+- npm install vuex
+  - package.json
+
+- create new folder (store)
+- create new file (store/index.js)
+
+-index.js
+  - state
+
+  - mutations
+    - saveCart(cartitem)
+      - Store LS
+  - actions
+    - addToCart(cartitem)
+      - saveCart(cartitem)
+  - getters
+
+
+Save LS
+-------
+  - SingleItem
+    => addToCart (cartitem)
+
+  - ItemDetail
+    => addToCart (cartitem)
+
+
+=> main.js (register vuex)
+
+=> Navbar (App.vue)
+=> AddToCart (singleITem.vue)

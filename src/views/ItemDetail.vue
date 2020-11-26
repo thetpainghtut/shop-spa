@@ -7,7 +7,7 @@
     </div>
 
     <div class="row">
-      <b-card no-body class="overflow-hidden">
+      <b-card no-body class="overflow-hidden" v-if="!loading">
         <b-row no-gutters>
           <b-col md="6">
             <b-card-img :src="item.photo" alt="Image" class="rounded-0"></b-card-img>
@@ -37,13 +37,17 @@
     data(){
       return {
         qty:1,
+        loading: true,
         item: Object
       }
     },
     created(){
       let id = this.$route.params.id;
       Service.getItemDetail(id)
-              .then(response => this.item = response.data.item)
+              .then(response => {
+                this.item = response.data.item
+                this.loading = false
+              })
     },
     methods:{
       AddToCart(){

@@ -30,14 +30,24 @@
               <router-link class="nav-link" to="/cart">Cart <span class="badge badge-danger badge-pill" v-if="cartCount>0">{{cartCount}}</span></router-link>
             </b-nav-item>
 
-            <b-nav-item-dropdown text="Lang" right>
+            <div v-if="!loginState">
+              <b-nav-item>
+                <router-link class="nav-link" to="/login">Login </router-link>
+              </b-nav-item>
+              <b-nav-item>
+                <router-link class="nav-link" to="/register">Register </router-link>
+              </b-nav-item>
+            </div>
+            
+
+            <!-- <b-nav-item-dropdown text="Lang" right>
               <b-dropdown-item href="#">EN</b-dropdown-item>
               <b-dropdown-item href="#">ES</b-dropdown-item>
               <b-dropdown-item href="#">RU</b-dropdown-item>
               <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
+            </b-nav-item-dropdown> -->
 
-            <b-nav-item-dropdown right>
+            <b-nav-item-dropdown right v-else>
               <!-- Using 'button-content' slot -->
               <template #button-content>
                 <em>User</em>
@@ -68,6 +78,10 @@
       cartCount(){
         this.$store.dispatch('setState')
         return this.$store.state.cart.reduce((a, c) => (a + c.qty),0)
+      },
+      loginState(){
+        this.$store.dispatch('setToken')
+        return this.$store.state.token?true:false
       }
     }
   }

@@ -24,5 +24,8 @@ export default{
   },
   getSubcategories(){
     return apiClient.get('/subcategories')
+  },
+  login(email, password){
+    return apiClient.post('/login',{email,password})
   }
 }

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    cart: []
+    cart: [],
+    token: ''
   },
   mutations: {
     saveToCart(state,payload){
@@ -25,6 +26,25 @@ const store = new Vuex.Store({
       }else{
         state.cart = [];
       }
+    },
+    incCart(state,payload){
+      state.cart[payload].qty++;
+    },
+    decCart(state,payload){
+      state.cart[payload].qty--;
+    },
+    storeToken(state,payload){
+      state.token = payload
+    },
+    saveToken(state){
+      localStorage.setItem('token', state.token);
+    },
+    setTokenState(state){
+      if(localStorage.getItem('token')){
+        state.token = localStorage.getItem('token');
+      }else{
+        state.token = '';
+      }
     }
   },
   actions:{
@@ -34,6 +54,21 @@ const store = new Vuex.Store({
     },
     setState({commit}){
       commit('setCartState')
+    },
+    plusCart({commit}, payload){
+      commit('incCart', payload)
+      commit('storeCart')
+    },
+    minusCart({commit}, payload){
+      commit('decCart', payload)
+      commit('storeCart')
+    },
+    storeToken({commit}, payload){
+      commit('storeToken', payload)
+      commit('saveToken')
+    },
+    setToken({commit}){
+      commit('setTokenState')
     }
   },
   getters:{

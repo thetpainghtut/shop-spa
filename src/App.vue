@@ -2,7 +2,7 @@
   <div id="app">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <div class="container">
-        <b-navbar-brand href="#">NavBar</b-navbar-brand>
+        <router-link to="/"><b-navbar-brand >NavBar</b-navbar-brand></router-link>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -30,27 +30,23 @@
               <router-link class="nav-link" to="/cart">Cart <span class="badge badge-danger badge-pill" v-if="cartCount>0">{{cartCount}}</span></router-link>
             </b-nav-item>
 
-            <div v-if="!loginState">
-              <b-nav-item>
-                <router-link class="nav-link" to="/login">Login </router-link>
-              </b-nav-item>
-              <b-nav-item>
-                <router-link class="nav-link" to="/register">Register </router-link>
-              </b-nav-item>
-            </div>
+            <b-nav-item v-if="!loginState">
+              <router-link class="nav-link" to="/login">Login </router-link>
+            </b-nav-item>
+            <b-nav-item v-if="!loginState">
+              <router-link class="nav-link" to="/register">Register </router-link>
+            </b-nav-item>
             
-
             <!-- <b-nav-item-dropdown text="Lang" right>
               <b-dropdown-item href="#">EN</b-dropdown-item>
               <b-dropdown-item href="#">ES</b-dropdown-item>
               <b-dropdown-item href="#">RU</b-dropdown-item>
               <b-dropdown-item href="#">FA</b-dropdown-item>
             </b-nav-item-dropdown> -->
-
-            <b-nav-item-dropdown right v-else>
+            <b-nav-item-dropdown class="mt-2" right v-if="loginState">
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>User</em>
+                <em>{{user.name}}</em>
               </template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
               <b-dropdown-item href="#">Sign Out</b-dropdown-item>
@@ -81,7 +77,11 @@
       },
       loginState(){
         this.$store.dispatch('setToken')
+        this.$store.dispatch('getUser')
         return this.$store.state.token?true:false
+      },
+      user(){
+        return this.$store.state.user
       }
     }
   }

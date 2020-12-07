@@ -1,6 +1,10 @@
 <template>
   <div class="about container">
-    <h1>This is a login page</h1>
+    <div class="row my-4">
+      <div class="col-md-12">
+        <h1 class="text-center">login page</h1>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <b-card no-body class="overflow-hidden justify-content-center">
@@ -11,6 +15,7 @@
             <b-col md="6">
               <b-card-body title="Login Form">
                 <b-card-text>
+                  <p v-if="error" class="text-danger">{{errMsg}}</p>
                   <form @submit.prevent="login">
                     <div class="form-group">
                       <label>Email</label>
@@ -40,6 +45,8 @@
   export default{
     data(){
       return {
+        error: false,
+        errMsg: '',
         email: "",
         password: ""
       }
@@ -50,9 +57,15 @@
         let password = this.password
         Service.login(email,password)
               .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 this.$store.dispatch('storeToken',response.data.access_token)
+                this.$store.dispatch('getUser')
                 this.$router.push('/item')
+              })
+              .catch(err=> {
+                console.log(err)
+                this.error = true
+                this.errMsg = "Email and Password Invalid!"
               })
       }
     }

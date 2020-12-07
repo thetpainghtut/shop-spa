@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Service from '@/service/Service.js'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
     cart: [],
-    token: ''
+    token: '',
+    user: {}
   },
   mutations: {
     saveToCart(state,payload){
@@ -42,9 +44,16 @@ const store = new Vuex.Store({
     setTokenState(state){
       if(localStorage.getItem('token')){
         state.token = localStorage.getItem('token');
-      }else{
-        state.token = '';
       }
+    },
+    getUser(state){
+      Service.getUser(state.token)
+        .then(response => {
+          this.dispatch('storeUser',response.data)
+        })
+    },
+    storeUser(state, payload){
+      state.user = payload
     }
   },
   actions:{
@@ -69,6 +78,12 @@ const store = new Vuex.Store({
     },
     setToken({commit}){
       commit('setTokenState')
+    },
+    getUser({commit}){
+      commit('getUser')
+    },
+    storeUser({commit}, payload){
+      commit('storeUser', payload)
     }
   },
   getters:{

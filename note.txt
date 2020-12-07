@@ -30,8 +30,16 @@ Save LS
   - ItemDetail
     => addToCart (cartitem)
 
-
 => main.js (register vuex)
 
 => Navbar (App.vue)
 => AddToCart (singleITem.vue)
+
+Bugs
+----
+  - Auth Failed Error (to fix)
+  - Auth user id (by sayar thet)
+  - infinite update loop in cart page (by sayar thet)
+  - redirect vue-router (by sayar thet)
+  - make Order
+    - orders, orderdetail

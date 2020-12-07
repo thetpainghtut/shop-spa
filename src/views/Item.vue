@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-12">
         <h1 class="text-danger">This is an item page</h1>
       </div>
-    </div>
+    </div> -->
     
     <div class="row">
       <div class="col-md-3 my-4" v-for="(row,index) in items" :key="index">

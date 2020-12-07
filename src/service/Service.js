@@ -9,6 +9,8 @@ const apiClient = axios.create({
   }
 })
 
+
+
 export default{
   getItems(){
     return apiClient.get('/items')
@@ -27,5 +29,12 @@ export default{
   },
   login(email, password){
     return apiClient.post('/login',{email,password})
+  },
+  getUser(token){
+    apiClient.defaults.headers.common['Authorization'] = 'Bearer '+token
+    return apiClient.get('/user')
+  },
+  order(ls,notes,user_id){
+    return apiClient.post('/orders',{ls,notes,user_id})
   }
 }
